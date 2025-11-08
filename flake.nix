@@ -12,7 +12,7 @@
       packages = forAllSystems (system:
         let pkgs = nixpkgs.legacyPackages.${system};
         in {
-          smithy-cli = pkgs.callPackage ./smithy.nix { };
+          smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           default = self.packages.${system}.smithy-cli;
         });
 
@@ -27,7 +27,7 @@
 
       # overlay so you can use it from other flakes via `overlays`
       overlays.default = final: prev: {
-        smithy-cli = final.callPackage ./smithy.nix { };
+        smithy-cli = final.callPackage ./pkgs/smithy { };
       };
     };
 }

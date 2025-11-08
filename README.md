@@ -1,30 +1,17 @@
-# Smithy 
+# nixpkgs
 
-install [smithy](https://github.com/smithy-lang/smithy) from binary release with nix.
-
-## Install 
-
-```sh
-nix profile add .#
-```
-
-## remove
-
-```sh
-nix profile remove smithy-nixpkg
-```
+collection of custom packages for nix
 
 ## use in devShell
 
-
 ```flake.nix
 {
-  description = "A Nix-flake providing development tools";
+  description = "my nix-flake";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-  inputs.smithy.url = "github:gotha/smithy-nixpkg?ref=main";
+  inputs.gotha.url = "github:gotha/nixpkgs?ref=main";
 
-  outputs = { self, nixpkgs, smithy, ... }:
+  outputs = { self, nixpkgs, gotha, ... }:
     let
       supportedSystems =
         [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -36,7 +23,7 @@ nix profile remove smithy-nixpkg
         default = pkgs.mkShell {
           packages = with pkgs; [
             coreutils
-            (smithy.packages.${system}.smithy-cli)
+            (gotha.packages.${system}.smithy-cli)
           ];
         };
       });
