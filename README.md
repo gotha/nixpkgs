@@ -1,6 +1,11 @@
 # nixpkgs
 
-collection of custom packages for nix
+collection of packages for nix
+
+## Available Packages
+
+- [mcp-atlassian](https://github.com/sooperset/mcp-atlassian): Model Context Protocol (MCP) server for Atlassian tools (Confluence, Jira)
+- [smithy](https://github.com/smithy-lang/smithy) - Command-line interface for the Smithy IDL and tooling
 
 ## use in devShell
 
@@ -24,6 +29,7 @@ collection of custom packages for nix
           packages = with pkgs; [
             coreutils
             (gotha.packages.${system}.smithy-cli)
+            (gotha.packages.${system}.mcp-atlassian)
           ];
         };
       });

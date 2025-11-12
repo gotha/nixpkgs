@@ -1,5 +1,5 @@
 {
-  description = "Smithy CLI (multi-system flake)";
+  description = "Custom packages for nix (multi-system flake)";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
 
@@ -10,9 +10,21 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in {
       packages = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          json-strong-typing =
+            pkgs.callPackage ./pkgs/python-packages/json-strong-typing { };
+          fastmcp = pkgs.callPackage ./pkgs/python-packages/fastmcp { };
+          markdown-to-confluence =
+            pkgs.callPackage ./pkgs/python-packages/markdown-to-confluence {
+              inherit json-strong-typing;
+            };
         in {
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
+          inherit json-strong-typing fastmcp markdown-to-confluence;
+          mcp-atlassian = pkgs.callPackage ./pkgs/mcp-atlassian {
+            inherit markdown-to-confluence fastmcp;
+          };
           default = self.packages.${system}.smithy-cli;
         });
 
@@ -22,12 +34,27 @@
           type = "app";
           program = "${self.packages.${system}.smithy-cli}/bin/smithy";
         };
+        mcp-atlassian = {
+          type = "app";
+          program =
+            "${self.packages.${system}.mcp-atlassian}/bin/mcp-atlassian";
+        };
         default = self.apps.${system}.smithy-cli;
       });
 
       # overlay so you can use it from other flakes via `overlays`
       overlays.default = final: prev: {
         smithy-cli = final.callPackage ./pkgs/smithy { };
+        json-strong-typing =
+          final.callPackage ./pkgs/python-packages/json-strong-typing { };
+        fastmcp = final.callPackage ./pkgs/python-packages/fastmcp { };
+        markdown-to-confluence =
+          final.callPackage ./pkgs/python-packages/markdown-to-confluence {
+            inherit (final) json-strong-typing;
+          };
+        mcp-atlassian = final.callPackage ./pkgs/mcp-atlassian {
+          inherit (final) markdown-to-confluence fastmcp;
+        };
       };
     };
 }
