@@ -25,6 +25,7 @@
           mcp-atlassian = pkgs.callPackage ./pkgs/mcp-atlassian {
             inherit markdown-to-confluence fastmcp;
           };
+          mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
           default = self.packages.${system}.smithy-cli;
         });
 
@@ -38,6 +39,11 @@
           type = "app";
           program =
             "${self.packages.${system}.mcp-atlassian}/bin/mcp-atlassian";
+        };
+        mcp-server-git = {
+          type = "app";
+          program =
+            "${self.packages.${system}.mcp-server-git}/bin/mcp-server-git";
         };
         default = self.apps.${system}.smithy-cli;
       });
@@ -55,6 +61,7 @@
         mcp-atlassian = final.callPackage ./pkgs/mcp-atlassian {
           inherit (final) markdown-to-confluence fastmcp;
         };
+        mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
       };
     };
 }
