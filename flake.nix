@@ -27,6 +27,7 @@
           };
           mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
           kubectl-mcp-server = pkgs.callPackage ./pkgs/kubectl-mcp-server { };
+          context7-mcp = pkgs.callPackage ./pkgs/context7-mcp { };
           default = self.packages.${system}.smithy-cli;
         });
 
@@ -48,8 +49,13 @@
         };
         kubectl-mcp-server = {
           type = "app";
-          program =
-            "${self.packages.${system}.kubectl-mcp-server}/bin/kubectl-mcp-server";
+          program = "${
+              self.packages.${system}.kubectl-mcp-server
+            }/bin/kubectl-mcp-server";
+        };
+        context7-mcp = {
+          type = "app";
+          program = "${self.packages.${system}.context7-mcp}/bin/context7-mcp";
         };
         default = self.apps.${system}.smithy-cli;
       });
@@ -69,6 +75,7 @@
         };
         mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
         kubectl-mcp-server = final.callPackage ./pkgs/kubectl-mcp-server { };
+        context7-mcp = final.callPackage ./pkgs/context7-mcp { };
       };
     };
 }

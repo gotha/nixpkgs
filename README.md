@@ -4,6 +4,7 @@ collection of packages for nix
 
 ## Available Packages
 
+- [context7-mcp](https://github.com/upstash/context7) - Up-to-date Code Docs For Any Prompt
 - [kubectl-mcp-server](https://github.com/rohitg00/kubectl-mcp-server): MCP server for Kubernetes 
 - [mcp-atlassian](https://github.com/sooperset/mcp-atlassian): MCP server for Atlassian tools (Confluence, Jira)
 - [mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git): MCP server for Git repository interaction and automation
