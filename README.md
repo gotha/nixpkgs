@@ -11,6 +11,7 @@ collection of packages for nix
 - [mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git): MCP server for Git repository interaction and automation
 - [mcp-server-github](https://github.com/modelcontextprotocol/servers): MCP server for GitHub API integration (deprecated but functional)
 - [mcp-server-memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory): MCP server for persistent memory through knowledge graph
+- [mcp-server-sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking): MCP server for sequential thinking and problem solving
 - [smithy](https://github.com/smithy-lang/smithy) - Command-line interface for the Smithy IDL and tooling
 
 ## use in devShell
@@ -40,6 +41,7 @@ collection of packages for nix
             (gotha.packages.${system}.mcp-server-git)
             (gotha.packages.${system}.mcp-server-github)
             (gotha.packages.${system}.mcp-server-memory)
+            (gotha.packages.${system}.mcp-server-sequential-thinking)
             (gotha.packages.${system}.smithy-cli)
           ];
         };

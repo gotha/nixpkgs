@@ -29,6 +29,7 @@
           mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
           mcp-server-github = pkgs.callPackage ./pkgs/mcp-server-github { };
           mcp-server-memory = pkgs.callPackage ./pkgs/mcp-server-memory { };
+          mcp-server-sequential-thinking = pkgs.callPackage ./pkgs/mcp-server-sequential-thinking { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           inherit json-strong-typing fastmcp markdown-to-confluence;
         });
@@ -63,6 +64,11 @@
           program =
             "${self.packages.${system}.mcp-server-memory}/bin/mcp-server-memory";
         };
+        mcp-server-sequential-thinking = {
+          type = "app";
+          program =
+            "${self.packages.${system}.mcp-server-sequential-thinking}/bin/mcp-server-sequential-thinking";
+        };
         kubectl-mcp-server = {
           type = "app";
           program = "${
@@ -93,6 +99,7 @@
         mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
         mcp-server-github = final.callPackage ./pkgs/mcp-server-github { };
         mcp-server-memory = final.callPackage ./pkgs/mcp-server-memory { };
+        mcp-server-sequential-thinking = final.callPackage ./pkgs/mcp-server-sequential-thinking { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
       };
     };
