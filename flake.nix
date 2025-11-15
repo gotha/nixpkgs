@@ -20,22 +20,26 @@
               inherit json-strong-typing;
             };
         in {
-          smithy-cli = pkgs.callPackage ./pkgs/smithy { };
-          inherit json-strong-typing fastmcp markdown-to-confluence;
+          context7-mcp = pkgs.callPackage ./pkgs/context7-mcp { };
+          gcloud-mcp = pkgs.callPackage ./pkgs/gcloud-mcp { };
+          kubectl-mcp-server = pkgs.callPackage ./pkgs/kubectl-mcp-server { };
           mcp-atlassian = pkgs.callPackage ./pkgs/mcp-atlassian {
             inherit markdown-to-confluence fastmcp;
           };
           mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
-          kubectl-mcp-server = pkgs.callPackage ./pkgs/kubectl-mcp-server { };
-          context7-mcp = pkgs.callPackage ./pkgs/context7-mcp { };
-          default = self.packages.${system}.smithy-cli;
+          smithy-cli = pkgs.callPackage ./pkgs/smithy { };
+          inherit json-strong-typing fastmcp markdown-to-confluence;
         });
 
       # wrappers so `nix run` works
       apps = forAllSystems (system: {
-        smithy-cli = {
+        context7-mcp = {
           type = "app";
-          program = "${self.packages.${system}.smithy-cli}/bin/smithy";
+          program = "${self.packages.${system}.context7-mcp}/bin/context7-mcp";
+        };
+        gcloud-mcp = {
+          type = "app";
+          program = "${self.packages.${system}.gcloud-mcp}/bin/gcloud-mcp";
         };
         mcp-atlassian = {
           type = "app";
@@ -53,19 +57,20 @@
               self.packages.${system}.kubectl-mcp-server
             }/bin/kubectl-mcp-server";
         };
-        context7-mcp = {
+        smithy-cli = {
           type = "app";
-          program = "${self.packages.${system}.context7-mcp}/bin/context7-mcp";
+          program = "${self.packages.${system}.smithy-cli}/bin/smithy";
         };
-        default = self.apps.${system}.smithy-cli;
       });
 
       # overlay so you can use it from other flakes via `overlays`
       overlays.default = final: prev: {
-        smithy-cli = final.callPackage ./pkgs/smithy { };
+        gcloud-mcp = final.callPackage ./pkgs/gcloud-mcp { };
+        context7-mcp = final.callPackage ./pkgs/context7-mcp { };
+        fastmcp = final.callPackage ./pkgs/python-packages/fastmcp { };
         json-strong-typing =
           final.callPackage ./pkgs/python-packages/json-strong-typing { };
-        fastmcp = final.callPackage ./pkgs/python-packages/fastmcp { };
+        kubectl-mcp-server = final.callPackage ./pkgs/kubectl-mcp-server { };
         markdown-to-confluence =
           final.callPackage ./pkgs/python-packages/markdown-to-confluence {
             inherit (final) json-strong-typing;
@@ -74,8 +79,7 @@
           inherit (final) markdown-to-confluence fastmcp;
         };
         mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
-        kubectl-mcp-server = final.callPackage ./pkgs/kubectl-mcp-server { };
-        context7-mcp = final.callPackage ./pkgs/context7-mcp { };
+        smithy-cli = final.callPackage ./pkgs/smithy { };
       };
     };
 }
