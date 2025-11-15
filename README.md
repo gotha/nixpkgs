@@ -9,6 +9,7 @@ collection of packages for nix
 - [kubectl-mcp-server](https://github.com/rohitg00/kubectl-mcp-server): MCP server for Kubernetes
 - [mcp-atlassian](https://github.com/sooperset/mcp-atlassian): MCP server for Atlassian tools (Confluence, Jira)
 - [mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git): MCP server for Git repository interaction and automation
+- [mcp-server-github](https://github.com/modelcontextprotocol/servers): MCP server for GitHub API integration (deprecated but functional)
 - [smithy](https://github.com/smithy-lang/smithy) - Command-line interface for the Smithy IDL and tooling
 
 ## use in devShell
@@ -36,6 +37,7 @@ collection of packages for nix
             (gotha.packages.${system}.kubectl-mcp-server)
             (gotha.packages.${system}.mcp-atlassian)
             (gotha.packages.${system}.mcp-server-git)
+            (gotha.packages.${system}.mcp-server-github)
             (gotha.packages.${system}.smithy-cli)
           ];
         };

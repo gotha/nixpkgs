@@ -27,6 +27,7 @@
             inherit markdown-to-confluence fastmcp;
           };
           mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
+          mcp-server-github = pkgs.callPackage ./pkgs/mcp-server-github { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           inherit json-strong-typing fastmcp markdown-to-confluence;
         });
@@ -50,6 +51,11 @@
           type = "app";
           program =
             "${self.packages.${system}.mcp-server-git}/bin/mcp-server-git";
+        };
+        mcp-server-github = {
+          type = "app";
+          program =
+            "${self.packages.${system}.mcp-server-github}/bin/mcp-server-github";
         };
         kubectl-mcp-server = {
           type = "app";
@@ -79,6 +85,7 @@
           inherit (final) markdown-to-confluence fastmcp;
         };
         mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
+        mcp-server-github = final.callPackage ./pkgs/mcp-server-github { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
       };
     };
