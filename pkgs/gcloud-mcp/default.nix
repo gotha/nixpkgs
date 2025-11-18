@@ -1,52 +1,37 @@
-{ lib, buildNpmPackage, fetchFromGitHub, nodejs }:
+{ lib, stdenvNoCC, nodejs, makeWrapper }:
 
-buildNpmPackage rec {
+stdenvNoCC.mkDerivation rec {
   pname = "gcloud-mcp";
   version = "0.4.0";
 
-  src = fetchFromGitHub {
-    owner = "googleapis";
-    repo = "gcloud-mcp";
-    rev = "gcloud-mcp-v${version}";
-    hash = "sha256-IlPcFIfTeQmHDtLInZtCLnw4nkLeyeeh/YoktVk5Bn8=";
+  # Fetch the pre-built package from npm registry using builtins.fetchTarball
+  src = builtins.fetchTarball {
+    url = "https://registry.npmjs.org/@google-cloud/gcloud-mcp/-/gcloud-mcp-${version}.tgz";
+    sha256 = "1qpsqxyrv2jw5yiskkw9c6lkr6zzhvk5f8zagh4v1w9gck6hczaa";
   };
 
-  # Generated with prefetch-npm-deps from the root package-lock.json
-  npmDepsHash = "sha256-HvkmzSe3I+5v3kXly0VsPto0f2Mlj179HC8c+T7eN6E=";
+  nativeBuildInputs = [ makeWrapper ];
 
-  # For monorepo, we need to build from the root and specify the workspace
-  npmWorkspace = "packages/gcloud-mcp";
+  installPhase = ''
+    runHook preInstall
 
-  # Build the TypeScript source
-  npmBuildScript = "build";
+    # Create output directories
+    mkdir -p $out/lib/node_modules/@google-cloud/gcloud-mcp
+    mkdir -p $out/bin
 
-  # Skip tests as they likely require GCP credentials and network access
-  doCheck = false;
+    # Copy the package contents
+    cp -r . $out/lib/node_modules/@google-cloud/gcloud-mcp/
 
-  # Disable broken symlinks check for monorepo workspace packages
-  dontFixup = false;
-  preFixup = ''
-    # Remove broken symlinks from other workspace packages
-    find $out -type l ! -exec test -e {} \; -delete || true
+    # Create wrapper script for the binary
+    makeWrapper ${nodejs}/bin/node $out/bin/gcloud-mcp \
+      --add-flags "$out/lib/node_modules/@google-cloud/gcloud-mcp/dist/bundle.js"
+
+    runHook postInstall
   '';
 
   meta = with lib; {
     description = "Model Context Protocol (MCP) Server for interacting with GCP APIs";
-    longDescription = ''
-      gcloud-mcp is a Model Context Protocol server that provides tools for
-      interacting with Google Cloud Platform (GCP) APIs through natural language.
-      Instead of memorizing complex gcloud commands, you can describe the outcome
-      you want and the server will execute the appropriate GCP operations.
-
-      Features:
-      - Natural language interface to GCP APIs
-      - Integration with gcloud CLI
-      - Support for various GCP services
-      - Model Context Protocol compatibility for AI assistants
-      - Secure authentication through gcloud credentials
-    '';
     homepage = "https://github.com/googleapis/gcloud-mcp";
-    changelog = "https://github.com/googleapis/gcloud-mcp/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ gotha ];
     platforms = platforms.all;
