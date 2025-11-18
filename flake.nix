@@ -31,6 +31,7 @@
           mcp-server-memory = pkgs.callPackage ./pkgs/mcp-server-memory { };
           mcp-server-sequential-thinking = pkgs.callPackage ./pkgs/mcp-server-sequential-thinking { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
+          goose = pkgs.callPackage ./pkgs/goose { };
           inherit json-strong-typing fastmcp markdown-to-confluence;
         });
 
@@ -79,6 +80,10 @@
           type = "app";
           program = "${self.packages.${system}.smithy-cli}/bin/smithy";
         };
+        goose = {
+          type = "app";
+          program = "${self.packages.${system}.goose}/bin/goose";
+        };
       });
 
       # overlay so you can use it from other flakes via `overlays`
@@ -101,6 +106,7 @@
         mcp-server-memory = final.callPackage ./pkgs/mcp-server-memory { };
         mcp-server-sequential-thinking = final.callPackage ./pkgs/mcp-server-sequential-thinking { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
+        goose = final.callPackage ./pkgs/goose { };
       };
     };
 }
