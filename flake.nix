@@ -29,6 +29,7 @@
           mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
           mcp-server-github = pkgs.callPackage ./pkgs/mcp-server-github { };
           mcp-server-memory = pkgs.callPackage ./pkgs/mcp-server-memory { };
+          mcp-server-playwright = pkgs.callPackage ./pkgs/mcp-server-playwright { };
           mcp-server-sequential-thinking = pkgs.callPackage ./pkgs/mcp-server-sequential-thinking { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           goose = pkgs.callPackage ./pkgs/goose { };
@@ -64,6 +65,11 @@
           type = "app";
           program =
             "${self.packages.${system}.mcp-server-memory}/bin/mcp-server-memory";
+        };
+        mcp-server-playwright = {
+          type = "app";
+          program =
+            "${self.packages.${system}.mcp-server-playwright}/bin/mcp-server-playwright";
         };
         mcp-server-sequential-thinking = {
           type = "app";
@@ -104,6 +110,7 @@
         mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
         mcp-server-github = final.callPackage ./pkgs/mcp-server-github { };
         mcp-server-memory = final.callPackage ./pkgs/mcp-server-memory { };
+        mcp-server-playwright = final.callPackage ./pkgs/mcp-server-playwright { };
         mcp-server-sequential-thinking = final.callPackage ./pkgs/mcp-server-sequential-thinking { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
         goose = final.callPackage ./pkgs/goose { };
