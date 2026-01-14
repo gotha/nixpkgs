@@ -31,6 +31,7 @@
           mcp-server-memory = pkgs.callPackage ./pkgs/mcp-server-memory { };
           mcp-server-playwright = pkgs.callPackage ./pkgs/mcp-server-playwright { };
           mcp-server-sequential-thinking = pkgs.callPackage ./pkgs/mcp-server-sequential-thinking { };
+          slack-mcp-server = pkgs.callPackage ./pkgs/slack-mcp-server { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           goose = pkgs.callPackage ./pkgs/goose { };
           inherit json-strong-typing fastmcp markdown-to-confluence;
@@ -82,6 +83,10 @@
               self.packages.${system}.kubectl-mcp-server
             }/bin/kubectl-mcp-server";
         };
+        slack-mcp-server = {
+          type = "app";
+          program = "${self.packages.${system}.slack-mcp-server}/bin/slack-mcp-server";
+        };
         smithy-cli = {
           type = "app";
           program = "${self.packages.${system}.smithy-cli}/bin/smithy";
@@ -112,6 +117,7 @@
         mcp-server-memory = final.callPackage ./pkgs/mcp-server-memory { };
         mcp-server-playwright = final.callPackage ./pkgs/mcp-server-playwright { };
         mcp-server-sequential-thinking = final.callPackage ./pkgs/mcp-server-sequential-thinking { };
+        slack-mcp-server = final.callPackage ./pkgs/slack-mcp-server { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
         goose = final.callPackage ./pkgs/goose { };
       };
