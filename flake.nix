@@ -34,6 +34,7 @@
           slack-mcp-server = pkgs.callPackage ./pkgs/slack-mcp-server { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           goose = pkgs.callPackage ./pkgs/goose { };
+          redis-insight-bin = pkgs.callPackage ./pkgs/redis-insight-bin { };
           inherit json-strong-typing fastmcp markdown-to-confluence;
         });
 
@@ -95,6 +96,10 @@
           type = "app";
           program = "${self.packages.${system}.goose}/bin/goose";
         };
+        redis-insight-bin = {
+          type = "app";
+          program = "${self.packages.${system}.redis-insight-bin}/bin/redis-insight-bin";
+        };
       });
 
       # overlay so you can use it from other flakes via `overlays`
@@ -120,6 +125,7 @@
         slack-mcp-server = final.callPackage ./pkgs/slack-mcp-server { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
         goose = final.callPackage ./pkgs/goose { };
+        redis-insight-bin = final.callPackage ./pkgs/redis-insight-bin { };
       };
     };
 }

@@ -15,6 +15,7 @@ collection of packages for nix
 - [mcp-server-playwright](https://github.com/microsoft/playwright-mcp): MCP server for browser automation via Playwright
 - [mcp-server-sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking): MCP server for sequential thinking and problem solving
 - [slack-mcp-server](https://github.com/korotovsky/slack-mcp-server): MCP server for Slack Workspaces with support for channels, DMs, threads, and search
+- [redis-insight-bin](https://github.com/redis/RedisInsight) - Redis GUI for streamlined Redis application development
 - [smithy](https://github.com/smithy-lang/smithy) - Command-line interface for the Smithy IDL and tooling
 
 ## use in devShell
@@ -48,6 +49,7 @@ collection of packages for nix
             (gotha.packages.${system}.mcp-server-playwright)
             (gotha.packages.${system}.mcp-server-sequential-thinking)
             (gotha.packages.${system}.slack-mcp-server)
+            (gotha.packages.${system}.redis-insight-bin)
             (gotha.packages.${system}.smithy-cli)
           ];
         };
