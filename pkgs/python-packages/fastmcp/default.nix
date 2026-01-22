@@ -20,6 +20,7 @@ python3.pkgs.buildPythonPackage rec {
   dependencies = with python3.pkgs; [
     mcp
     pydantic
+    openapi-pydantic
     uvicorn
     starlette
     httpx
@@ -33,9 +34,6 @@ python3.pkgs.buildPythonPackage rec {
 
   # Disable tests as they likely require additional test dependencies
   doCheck = false;
-
-  # Disable runtime dependency checks due to missing openapi-pydantic
-  dontCheckRuntimeDeps = true;
 
   pythonImportsCheck = [
     "fastmcp"
