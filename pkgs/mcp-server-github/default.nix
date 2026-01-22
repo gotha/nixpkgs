@@ -1,64 +1,57 @@
-{ lib, buildNpmPackage, fetchFromGitHub, nodejs }:
+{ lib, buildGoModule, fetchFromGitHub }:
 
-buildNpmPackage rec {
+buildGoModule rec {
   pname = "mcp-server-github";
-  version = "0.6.2";
+  version = "0.29.0";
 
   src = fetchFromGitHub {
-    owner = "modelcontextprotocol";
-    repo = "servers";
-    rev = "typescript-servers-${version}";
-    hash = "sha256-FKotJUzP29iZzfRqfWGhdZosWxGX7BBOExxznfLi7Us=";
+    owner = "github";
+    repo = "github-mcp-server";
+    rev = "v${version}";
+    hash = "sha256-diL1aIVxsR1Bl+HeWuZiFe3s9Xt4B6jYW8PBkBZu+Kk=";
   };
 
-  # Generated with prefetch-npm-deps from the root package-lock.json
-  npmDepsHash = "sha256-fuJQxbHrv/x49I3WDMQxXC/+kuv/JiTDdHiAEaN94Zw=";
+  vendorHash = "sha256-q4Fy/dfnzLuMuZ27KO3MogGP/XdJbmOUISBkoTNPUUk=";
 
-  # For monorepo, we need to build from the root and specify the workspace
-  npmWorkspace = "src/github";
-
-  # Build the TypeScript source
-  npmBuildScript = "build";
-
-  # Skip tests as they likely require GitHub credentials and network access
+  # Skip tests as they require GitHub credentials and network access
   doCheck = false;
 
-  # Skip Puppeteer browser download during build
-  env = {
-    PUPPETEER_SKIP_DOWNLOAD = "true";
-  };
-
-  # Disable broken symlinks check for monorepo workspace packages
-  dontFixup = false;
-  preFixup = ''
-    # Remove broken symlinks from other workspace packages
-    find $out -type l ! -exec test -e {} \; -delete || true
-  '';
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
-    description = "MCP server for using the GitHub API";
+    description = "Official GitHub MCP server - connects AI tools to GitHub";
     longDescription = ''
-      mcp-server-github is a Model Context Protocol server that provides tools for
-      interacting with the GitHub API. It enables file operations, repository management,
-      search functionality, and more through natural language commands.
+      The GitHub MCP Server connects AI tools directly to GitHub's platform. This gives
+      AI agents, assistants, and chatbots the ability to read repositories and code files,
+      manage issues and PRs, analyze code, and automate workflows through natural language.
 
-      Note: This package is based on the deprecated @modelcontextprotocol/server-github
-      npm package. While still functional, users may want to consider alternative
-      GitHub MCP servers from the community.
+      This is the official GitHub MCP server, now maintained by GitHub (previously by
+      the Model Context Protocol team). It has been completely rewritten in Go for
+      better performance and reliability.
 
-      Features:
-      - GitHub API integration
-      - File operations (read, write, create, delete)
-      - Repository management
-      - Search functionality
-      - Issue and pull request management
-      - Model Context Protocol compatibility
+      Key Features:
+      - Repository Management: Browse code, search files, analyze commits, understand project structure
+      - Issue & PR Automation: Create, update, and manage issues and pull requests
+      - CI/CD & Workflow Intelligence: Monitor GitHub Actions, analyze build failures, manage releases
+      - Code Analysis: Examine security findings, review Dependabot alerts, understand code patterns
+      - Team Collaboration: Access discussions, manage notifications, analyze team activity
+
+      Use Cases:
+      - Natural language queries about your codebase
+      - Automated issue triage and PR reviews
+      - CI/CD pipeline monitoring and analysis
+      - Security and dependency management
+      - Team collaboration and workflow automation
     '';
-    homepage = "https://github.com/modelcontextprotocol/servers";
-    changelog = "https://github.com/modelcontextprotocol/servers/releases/tag/typescript-servers-${version}";
+    homepage = "https://github.com/github/github-mcp-server";
+    changelog = "https://github.com/github/github-mcp-server/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ gotha ];
     platforms = platforms.all;
-    mainProgram = "mcp-server-github";
+    mainProgram = "github-mcp-server";
   };
 }
