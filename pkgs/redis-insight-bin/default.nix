@@ -32,16 +32,24 @@ if stdenvNoCC.isLinux then
     };
 
     extraInstallCommands = ''
-      # Add desktop file and icon if they exist
-      if [ -d $out/usr/share/applications ]; then
-        install -Dm444 $out/usr/share/applications/*.desktop -t $out/share/applications
-        substituteInPlace $out/share/applications/*.desktop \
-          --replace 'Exec=AppRun' 'Exec=redis-insight'
-      fi
+      # Create desktop file for application launchers
+      mkdir -p $out/share/applications
+      cat > $out/share/applications/redis-insight.desktop <<'EOF'
+[Desktop Entry]
+Name=RedisInsight
+Comment=Redis GUI for streamlined Redis application development
+Exec=${pname}
+Icon=redis-insight
+Terminal=false
+Type=Application
+Categories=Development;Database;
+StartupWMClass=RedisInsight
+StartupNotify=true
+EOF
 
-      if [ -d $out/usr/share/icons ]; then
-        cp -r $out/usr/share/icons $out/share/
-      fi
+      # Substitute the actual binary name
+      substituteInPlace $out/share/applications/redis-insight.desktop \
+        --replace '${pname}' "$out/bin/${pname}"
     '';
 
     extraPkgs = pkgs: with pkgs; [ ];

@@ -1,4 +1,4 @@
-{ lib, python3, markdown-to-confluence, fastmcp }:
+{ lib, python3, markdown-to-confluence, fastmcp, pydocket }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mcp-atlassian";
@@ -36,6 +36,7 @@ python3.pkgs.buildPythonApplication rec {
 
     fastmcp
     markdown-to-confluence
+    pydocket
 
     # Only these are missing from nixpkgs:
     # - types-python-dateutil (type stubs, not runtime critical)
