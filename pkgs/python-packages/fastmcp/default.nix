@@ -34,12 +34,10 @@ python3.pkgs.buildPythonPackage rec {
     authlib
     platformdirs
     jsonschema
+    jsonref
     # Missing from nixpkgs:
     # - cyclopts
-    # - jsonref
     # - jsonschema-path
-    # - py-key-value-aio
-    # - pydocket
     # - pyperclip
   ];
 

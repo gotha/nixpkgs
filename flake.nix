@@ -15,6 +15,15 @@
           json-strong-typing =
             pkgs.callPackage ./pkgs/python-packages/json-strong-typing { };
           fastmcp = pkgs.callPackage ./pkgs/python-packages/fastmcp { };
+          py-key-value-shared =
+            pkgs.callPackage ./pkgs/python-packages/py-key-value-shared { };
+          py-key-value-aio =
+            pkgs.callPackage ./pkgs/python-packages/py-key-value-aio {
+              inherit py-key-value-shared;
+            };
+          pydocket = pkgs.callPackage ./pkgs/python-packages/pydocket {
+            inherit py-key-value-aio;
+          };
           markdown-to-confluence =
             pkgs.callPackage ./pkgs/python-packages/markdown-to-confluence {
               inherit json-strong-typing;
@@ -24,7 +33,7 @@
           gcloud-mcp = pkgs.callPackage ./pkgs/gcloud-mcp { };
           kubectl-mcp-server = pkgs.callPackage ./pkgs/kubectl-mcp-server { };
           mcp-atlassian = pkgs.callPackage ./pkgs/mcp-atlassian {
-            inherit markdown-to-confluence fastmcp;
+            inherit markdown-to-confluence fastmcp pydocket;
           };
           mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
           mcp-server-github = pkgs.callPackage ./pkgs/mcp-server-github { };
@@ -35,7 +44,7 @@
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           goose = pkgs.callPackage ./pkgs/goose { };
           redis-insight-bin = pkgs.callPackage ./pkgs/redis-insight-bin { };
-          inherit json-strong-typing fastmcp markdown-to-confluence;
+          inherit json-strong-typing fastmcp markdown-to-confluence pydocket;
         });
 
       # wrappers so `nix run` works
@@ -109,13 +118,22 @@
         fastmcp = final.callPackage ./pkgs/python-packages/fastmcp { };
         json-strong-typing =
           final.callPackage ./pkgs/python-packages/json-strong-typing { };
+        py-key-value-shared =
+          final.callPackage ./pkgs/python-packages/py-key-value-shared { };
+        py-key-value-aio =
+          final.callPackage ./pkgs/python-packages/py-key-value-aio {
+            inherit (final) py-key-value-shared;
+          };
+        pydocket = final.callPackage ./pkgs/python-packages/pydocket {
+          inherit (final) py-key-value-aio;
+        };
         kubectl-mcp-server = final.callPackage ./pkgs/kubectl-mcp-server { };
         markdown-to-confluence =
           final.callPackage ./pkgs/python-packages/markdown-to-confluence {
             inherit (final) json-strong-typing;
           };
         mcp-atlassian = final.callPackage ./pkgs/mcp-atlassian {
-          inherit (final) markdown-to-confluence fastmcp;
+          inherit (final) markdown-to-confluence fastmcp pydocket;
         };
         mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
         mcp-server-github = final.callPackage ./pkgs/mcp-server-github { };
