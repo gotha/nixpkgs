@@ -44,6 +44,7 @@
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           goose = pkgs.callPackage ./pkgs/goose { };
           redis-insight-bin = pkgs.callPackage ./pkgs/redis-insight-bin { };
+          auggie = pkgs.callPackage ./pkgs/auggie { };
           inherit json-strong-typing fastmcp markdown-to-confluence pydocket;
         });
 
@@ -109,6 +110,10 @@
           type = "app";
           program = "${self.packages.${system}.redis-insight-bin}/bin/redis-insight-bin";
         };
+        auggie = {
+          type = "app";
+          program = "${self.packages.${system}.auggie}/bin/auggie";
+        };
       });
 
       # overlay so you can use it from other flakes via `overlays`
@@ -144,6 +149,7 @@
         smithy-cli = final.callPackage ./pkgs/smithy { };
         goose = final.callPackage ./pkgs/goose { };
         redis-insight-bin = final.callPackage ./pkgs/redis-insight-bin { };
+        auggie = final.callPackage ./pkgs/auggie { };
       };
     };
 }
