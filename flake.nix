@@ -35,6 +35,7 @@
           mcp-atlassian = pkgs.callPackage ./pkgs/mcp-atlassian {
             inherit markdown-to-confluence fastmcp pydocket;
           };
+          linkedin-mcp-server = pkgs.callPackage ./pkgs/linkedin-mcp-server { };
           mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
           mcp-server-github = pkgs.callPackage ./pkgs/mcp-server-github { };
           mcp-server-memory = pkgs.callPackage ./pkgs/mcp-server-memory { };
@@ -94,6 +95,11 @@
               self.packages.${system}.kubectl-mcp-server
             }/bin/kubectl-mcp-server";
         };
+        linkedin-mcp-server = {
+          type = "app";
+          program =
+            "${self.packages.${system}.linkedin-mcp-server}/bin/linkedin-mcp-server";
+        };
         slack-mcp-server = {
           type = "app";
           program = "${self.packages.${system}.slack-mcp-server}/bin/slack-mcp-server";
@@ -133,6 +139,7 @@
           inherit (final) py-key-value-aio;
         };
         kubectl-mcp-server = final.callPackage ./pkgs/kubectl-mcp-server { };
+        linkedin-mcp-server = final.callPackage ./pkgs/linkedin-mcp-server { };
         markdown-to-confluence =
           final.callPackage ./pkgs/python-packages/markdown-to-confluence {
             inherit (final) json-strong-typing;
