@@ -65,6 +65,19 @@ buildNpmPackage rec {
     # Remove pino-pretty transport from logger - MCP servers use stdio and should not format logs
     # Use standard pino JSON output to stderr instead
     sed -i '/transport: {/,/},$/d' src/services/logger.service.ts
+
+    # Add support for LINKEDIN_ACCESS_TOKEN env var to skip OAuth flow
+    # Patch the authenticate method to check for pre-configured token first
+    substituteInPlace src/services/token.service.ts \
+      --replace-fail "if (this.hasValidToken()) {" \
+"// Check for pre-configured access token from environment
+    if (!this.accessToken && process.env.LINKEDIN_ACCESS_TOKEN) {
+      this.accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
+      this.tokenExpiry = Date.now() + 60 * 24 * 60 * 60 * 1000; // 60 days
+      this.logger.info('Using pre-configured access token from LINKEDIN_ACCESS_TOKEN');
+      return;
+    }
+    if (this.hasValidToken()) {"
   '';
 
   # Build the TypeScript source
