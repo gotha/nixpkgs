@@ -1,29 +1,41 @@
-{ lib, buildNpmPackage, fetchFromGitHub, nodejs }:
+{ lib, buildNpmPackage, fetchurl, nodejs }:
 
 buildNpmPackage rec {
   pname = "context7-mcp";
-  version = "1.0.27";
+  version = "2.2.0";
 
-  src = fetchFromGitHub {
-    owner = "upstash";
-    repo = "context7";
-    rev = "v${version}";
-    hash = "sha256-GoM2mxLODqFku5qeWCIfQNG3pMU09cmwNZYYjK0vG1A=";
+  src = fetchurl {
+    url = "https://registry.npmjs.org/@upstash/context7-mcp/-/context7-mcp-${version}.tgz";
+    hash = "sha256-lbeRTlD8tMt9c9fsJ5IFtaGEmF/9tHzzr1BT6Y5gq9k=";
   };
 
-  # Use the generated package-lock.json
-  npmDepsHash = "sha256-m2tVzlalUV/Arpe37cVXIFgHiFxY72M8uuo0kOCo33w=";
+  sourceRoot = "package";
 
-  # Copy the package-lock.json we generated
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
   '';
 
-  # Build the TypeScript source
-  npmBuildScript = "build";
+  npmDepsHash = "sha256-HkPREswr8jzwxH8mIs3iBS4dmDHwnM4MEtOSPFWX8zk=";
 
-  # Skip tests as they likely require API keys and network access
+  dontNpmBuild = true;
+
+  # Skip tests
   doCheck = false;
+
+  # Custom install phase to handle scoped package name
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/lib/node_modules/@upstash/context7-mcp
+    cp -r dist package.json $out/lib/node_modules/@upstash/context7-mcp/
+    cp -r node_modules $out/lib/node_modules/@upstash/context7-mcp/
+
+    mkdir -p $out/bin
+    ln -s $out/lib/node_modules/@upstash/context7-mcp/dist/index.js $out/bin/context7-mcp
+    chmod +x $out/lib/node_modules/@upstash/context7-mcp/dist/index.js
+
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description =
