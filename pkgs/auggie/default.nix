@@ -2,12 +2,12 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "auggie";
-  version = "0.16.1";
+  version = "0.24.0";
 
   src = fetchzip {
     url =
       "https://registry.npmjs.org/@augmentcode/auggie/-/auggie-${version}.tgz";
-    hash = "sha256-n3I2RkhGACicf5Cd4F6udoKUX+CXifM0iaA0eWy9lko=";
+    hash = "sha256-Gr9806+VGktgwFCseR5kz+UbC452534S3iJiyn1CG8c=";
     stripRoot = true;
   };
 
