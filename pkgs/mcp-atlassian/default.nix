@@ -33,6 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     python-dateutil
     keyring
     cachetools
+    unidecode
 
     fastmcp
     markdown-to-confluence
