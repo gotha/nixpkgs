@@ -2,6 +2,12 @@
 , python3
 }:
 
+let
+  # Override authlib to add missing joserfc dependency
+  authlib = python3.pkgs.authlib.overridePythonAttrs (old: {
+    dependencies = (old.dependencies or []) ++ [ python3.pkgs.joserfc ];
+  });
+in
 python3.pkgs.buildPythonPackage rec {
   pname = "fastmcp";
   version = "2.14.4";
@@ -32,9 +38,11 @@ python3.pkgs.buildPythonPackage rec {
     websockets
     # New dependencies in 2.14.4
     authlib
+    joserfc
     platformdirs
     jsonschema
     jsonref
+    packaging
     # Missing from nixpkgs:
     # - cyclopts
     # - jsonschema-path

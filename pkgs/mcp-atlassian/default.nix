@@ -2,13 +2,13 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mcp-atlassian";
-  version = "0.13.0";
+  version = "0.21.1";
   pyproject = true;
 
   src = python3.pkgs.fetchPypi {
     pname = "mcp_atlassian";
     inherit version;
-    hash = "sha256-xEbi8l3/BXMjLxowOss7sVsRC8ka4PcfQGAx6xUg/EI=";
+    hash = "sha256-3/bIFUFQbLDMgNesmQD/3LJG/seAjkHo33PAndSigHQ=";
   };
 
   build-system = with python3.pkgs; [ hatchling uv-dynamic-versioning ];
