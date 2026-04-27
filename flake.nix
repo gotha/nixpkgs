@@ -43,7 +43,6 @@
           mcp-server-sequential-thinking = pkgs.callPackage ./pkgs/mcp-server-sequential-thinking { };
           slack-mcp-server = pkgs.callPackage ./pkgs/slack-mcp-server { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
-          goose = pkgs.callPackage ./pkgs/goose { };
           redis-insight-bin = pkgs.callPackage ./pkgs/redis-insight-bin { };
           auggie = pkgs.callPackage ./pkgs/auggie { };
           inherit json-strong-typing fastmcp markdown-to-confluence pydocket;
@@ -108,10 +107,6 @@
           type = "app";
           program = "${self.packages.${system}.smithy-cli}/bin/smithy";
         };
-        goose = {
-          type = "app";
-          program = "${self.packages.${system}.goose}/bin/goose";
-        };
         redis-insight-bin = {
           type = "app";
           program = "${self.packages.${system}.redis-insight-bin}/bin/redis-insight-bin";
@@ -154,7 +149,6 @@
         mcp-server-sequential-thinking = final.callPackage ./pkgs/mcp-server-sequential-thinking { };
         slack-mcp-server = final.callPackage ./pkgs/slack-mcp-server { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
-        goose = final.callPackage ./pkgs/goose { };
         redis-insight-bin = final.callPackage ./pkgs/redis-insight-bin { };
         auggie = final.callPackage ./pkgs/auggie { };
       };

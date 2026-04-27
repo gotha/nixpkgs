@@ -7,7 +7,6 @@ collection of packages for nix
 - [auggie](https://augmentcode.com) - Auggie CLI Client by Augment Code
 - [context7-mcp](https://github.com/upstash/context7) - Up-to-date Code Docs For Any Prompt
 - [gcloud-mcp](https://github.com/googleapis/gcloud-mcp) - Model Context Protocol server for Google Cloud Platform APIs
-- [goose](https://github.com/block/goose) - An open source, extensible AI agent that goes beyond code suggestions
 - [kubectl-mcp-server](https://github.com/rohitg00/kubectl-mcp-server) - MCP server for Kubernetes
 - [linkedin-mcp-server](https://github.com/felipfr/linkedin-mcpserver) - MCP server for LinkedIn API integration (profile search, jobs, messaging)
 - [mcp-atlassian](https://github.com/sooperset/mcp-atlassian) - MCP server for Atlassian tools (Confluence, Jira)
@@ -44,7 +43,6 @@ collection of packages for nix
             (gotha.packages.${system}.auggie)
             (gotha.packages.${system}.context7-mcp)
             (gotha.packages.${system}.gcloud-mcp)
-            (gotha.packages.${system}.goose)
             (gotha.packages.${system}.kubectl-mcp-server)
             (gotha.packages.${system}.linkedin-mcp-server)
             (gotha.packages.${system}.mcp-atlassian)
