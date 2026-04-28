@@ -2,12 +2,12 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "gcloud-mcp";
-  version = "0.4.0";
+  version = "0.5.3";
 
   # Fetch the pre-built package from npm registry using builtins.fetchTarball
   src = builtins.fetchTarball {
     url = "https://registry.npmjs.org/@google-cloud/gcloud-mcp/-/gcloud-mcp-${version}.tgz";
-    sha256 = "1qpsqxyrv2jw5yiskkw9c6lkr6zzhvk5f8zagh4v1w9gck6hczaa";
+    sha256 = "1n2xzk0h0x7g34r17603k6rm2yxmykwv22k7vhk2gs9jv0i74kwh";
   };
 
   nativeBuildInputs = [ makeWrapper ];
