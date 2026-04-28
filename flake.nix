@@ -41,7 +41,6 @@
           mcp-server-memory = pkgs.callPackage ./pkgs/mcp-server-memory { };
           mcp-server-playwright = pkgs.callPackage ./pkgs/mcp-server-playwright { };
           mcp-server-sequential-thinking = pkgs.callPackage ./pkgs/mcp-server-sequential-thinking { };
-          slack-mcp-server = pkgs.callPackage ./pkgs/slack-mcp-server { };
           smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           redis-insight-bin = pkgs.callPackage ./pkgs/redis-insight-bin { };
           auggie = pkgs.callPackage ./pkgs/auggie { };
@@ -99,10 +98,6 @@
           program =
             "${self.packages.${system}.linkedin-mcp-server}/bin/linkedin-mcp-server";
         };
-        slack-mcp-server = {
-          type = "app";
-          program = "${self.packages.${system}.slack-mcp-server}/bin/slack-mcp-server";
-        };
         smithy-cli = {
           type = "app";
           program = "${self.packages.${system}.smithy-cli}/bin/smithy";
@@ -147,7 +142,6 @@
         mcp-server-memory = final.callPackage ./pkgs/mcp-server-memory { };
         mcp-server-playwright = final.callPackage ./pkgs/mcp-server-playwright { };
         mcp-server-sequential-thinking = final.callPackage ./pkgs/mcp-server-sequential-thinking { };
-        slack-mcp-server = final.callPackage ./pkgs/slack-mcp-server { };
         smithy-cli = final.callPackage ./pkgs/smithy { };
         redis-insight-bin = final.callPackage ./pkgs/redis-insight-bin { };
         auggie = final.callPackage ./pkgs/auggie { };
