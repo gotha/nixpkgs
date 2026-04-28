@@ -2,15 +2,15 @@
 
 buildNpmPackage rec {
   pname = "mcp-server-memory";
-  version = "2025.9.25";
+  version = "2026.1.26";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@modelcontextprotocol/server-memory/-/server-memory-${version}.tgz";
-    hash = "sha256-tKCcrZceZT65N1Mh7Th0J2T1RphsBDqwVl/6m4jSq0M=";
+    hash = "sha256-cD9iexZwFnV0ofEZAxgWSBvgENaLcv8JypuZ1x5e9SQ=";
   };
 
   # Generated with prefetch-npm-deps from a minimal package-lock.json with the required dependency
-  npmDepsHash = "sha256-JlQ0eL+ivkSh1NsiMIogRP4wKW2WROwsSfTAeGmRbuo=";
+  npmDepsHash = "sha256-qzijayC8aJMO2tG9i8k+dN6QdIoOEAKu30Zg0SQ4bPw=";
 
   # Copy the package-lock.json file and modify package.json to remove devDependencies
   postPatch = ''
