@@ -2,15 +2,15 @@
 
 buildNpmPackage rec {
   pname = "mcp-server-sequential-thinking";
-  version = "2025.7.1";
+  version = "2025.12.18";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@modelcontextprotocol/server-sequential-thinking/-/server-sequential-thinking-${version}.tgz";
-    hash = "sha256-FfHOs+/SUJaxnPgn8xWimeG2fOF5kFDNHnfbzUozatU=";
+    hash = "sha256-WiHm+kc3IrjmIqm7vdcrxtvN30MPJqtZic0z3+XcdwM=";
   };
 
   # Generated with prefetch-npm-deps from a minimal package-lock.json with the required dependencies
-  npmDepsHash = "sha256-FTnc210YvqHCiH2UYJTtHvB6i63kRgIe+8DCRXwQtLA=";
+  npmDepsHash = "sha256-Td3vl9OMNg0mUMCuSunhVnq1+Jlo0PrqwnAepr9dmgs=";
 
   # Copy the package-lock.json file and modify package.json to remove devDependencies
   postPatch = ''
