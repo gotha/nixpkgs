@@ -29,18 +29,11 @@
               inherit json-strong-typing;
             };
         in {
-          context7-mcp = pkgs.callPackage ./pkgs/context7-mcp { };
           gcloud-mcp = pkgs.callPackage ./pkgs/gcloud-mcp { };
           kubectl-mcp-server = pkgs.callPackage ./pkgs/kubectl-mcp-server { };
           mcp-atlassian = pkgs.callPackage ./pkgs/mcp-atlassian {
             inherit markdown-to-confluence fastmcp pydocket;
           };
-          mcp-server-git = pkgs.callPackage ./pkgs/mcp-server-git { };
-          mcp-server-github = pkgs.callPackage ./pkgs/mcp-server-github { };
-          mcp-server-memory = pkgs.callPackage ./pkgs/mcp-server-memory { };
-          mcp-server-playwright = pkgs.callPackage ./pkgs/mcp-server-playwright { };
-          mcp-server-sequential-thinking = pkgs.callPackage ./pkgs/mcp-server-sequential-thinking { };
-          smithy-cli = pkgs.callPackage ./pkgs/smithy { };
           redis-insight-bin = pkgs.callPackage ./pkgs/redis-insight-bin { };
           auggie = pkgs.callPackage ./pkgs/auggie { };
           inherit json-strong-typing fastmcp markdown-to-confluence pydocket;
@@ -48,10 +41,6 @@
 
       # wrappers so `nix run` works
       apps = forAllSystems (system: {
-        context7-mcp = {
-          type = "app";
-          program = "${self.packages.${system}.context7-mcp}/bin/context7-mcp";
-        };
         gcloud-mcp = {
           type = "app";
           program = "${self.packages.${system}.gcloud-mcp}/bin/gcloud-mcp";
@@ -61,40 +50,11 @@
           program =
             "${self.packages.${system}.mcp-atlassian}/bin/mcp-atlassian";
         };
-        mcp-server-git = {
-          type = "app";
-          program =
-            "${self.packages.${system}.mcp-server-git}/bin/mcp-server-git";
-        };
-        mcp-server-github = {
-          type = "app";
-          program =
-            "${self.packages.${system}.mcp-server-github}/bin/mcp-server-github";
-        };
-        mcp-server-memory = {
-          type = "app";
-          program =
-            "${self.packages.${system}.mcp-server-memory}/bin/mcp-server-memory";
-        };
-        mcp-server-playwright = {
-          type = "app";
-          program =
-            "${self.packages.${system}.mcp-server-playwright}/bin/mcp-server-playwright";
-        };
-        mcp-server-sequential-thinking = {
-          type = "app";
-          program =
-            "${self.packages.${system}.mcp-server-sequential-thinking}/bin/mcp-server-sequential-thinking";
-        };
         kubectl-mcp-server = {
           type = "app";
           program = "${
               self.packages.${system}.kubectl-mcp-server
             }/bin/kubectl-mcp-server";
-        };
-        smithy-cli = {
-          type = "app";
-          program = "${self.packages.${system}.smithy-cli}/bin/smithy";
         };
         redis-insight-bin = {
           type = "app";
@@ -109,7 +69,6 @@
       # overlay so you can use it from other flakes via `overlays`
       overlays.default = final: prev: {
         gcloud-mcp = final.callPackage ./pkgs/gcloud-mcp { };
-        context7-mcp = final.callPackage ./pkgs/context7-mcp { };
         fastmcp = final.callPackage ./pkgs/python-packages/fastmcp { };
         json-strong-typing =
           final.callPackage ./pkgs/python-packages/json-strong-typing { };
@@ -130,12 +89,6 @@
         mcp-atlassian = final.callPackage ./pkgs/mcp-atlassian {
           inherit (final) markdown-to-confluence fastmcp pydocket;
         };
-        mcp-server-git = final.callPackage ./pkgs/mcp-server-git { };
-        mcp-server-github = final.callPackage ./pkgs/mcp-server-github { };
-        mcp-server-memory = final.callPackage ./pkgs/mcp-server-memory { };
-        mcp-server-playwright = final.callPackage ./pkgs/mcp-server-playwright { };
-        mcp-server-sequential-thinking = final.callPackage ./pkgs/mcp-server-sequential-thinking { };
-        smithy-cli = final.callPackage ./pkgs/smithy { };
         redis-insight-bin = final.callPackage ./pkgs/redis-insight-bin { };
         auggie = final.callPackage ./pkgs/auggie { };
       };

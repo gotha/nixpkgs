@@ -5,17 +5,10 @@ collection of packages for nix
 ## Available Packages
 
 - [auggie](https://augmentcode.com) - Auggie CLI Client by Augment Code
-- [context7-mcp](https://github.com/upstash/context7) - Up-to-date Code Docs For Any Prompt
 - [gcloud-mcp](https://github.com/googleapis/gcloud-mcp) - Model Context Protocol server for Google Cloud Platform APIs
 - [kubectl-mcp-server](https://github.com/rohitg00/kubectl-mcp-server) - MCP server for Kubernetes
 - [mcp-atlassian](https://github.com/sooperset/mcp-atlassian) - MCP server for Atlassian tools (Confluence, Jira)
-- [mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git) - MCP server for Git repository interaction and automation
-- [mcp-server-github](https://github.com/modelcontextprotocol/servers) - MCP server for GitHub API integration (deprecated but functional)
-- [mcp-server-memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory) - MCP server for persistent memory through knowledge graph
-- [mcp-server-playwright](https://github.com/microsoft/playwright-mcp) - MCP server for browser automation via Playwright
-- [mcp-server-sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking) - MCP server for sequential thinking and problem solving
 - [redis-insight-bin](https://github.com/redis/RedisInsight) - Redis GUI for streamlined Redis application development
-- [smithy-cli](https://github.com/smithy-lang/smithy) - Command-line interface for the Smithy IDL and tooling
 
 ## use in devShell
 
@@ -39,17 +32,10 @@ collection of packages for nix
           packages = with pkgs; [
             coreutils
             (gotha.packages.${system}.auggie)
-            (gotha.packages.${system}.context7-mcp)
             (gotha.packages.${system}.gcloud-mcp)
             (gotha.packages.${system}.kubectl-mcp-server)
             (gotha.packages.${system}.mcp-atlassian)
-            (gotha.packages.${system}.mcp-server-git)
-            (gotha.packages.${system}.mcp-server-github)
-            (gotha.packages.${system}.mcp-server-memory)
-            (gotha.packages.${system}.mcp-server-playwright)
-            (gotha.packages.${system}.mcp-server-sequential-thinking)
             (gotha.packages.${system}.redis-insight-bin)
-            (gotha.packages.${system}.smithy-cli)
           ];
         };
       });
